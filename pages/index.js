@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div>
-      <p>Hola Mundo</p>
+      <p>AwA de UwU</p>
     </div>
   )
 }
