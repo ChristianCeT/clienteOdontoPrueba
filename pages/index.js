@@ -1,9 +1,7 @@
-
-
 export default function Home() {
   return (
     <div>
-      <p>AwA de UwU</p>
+      <p>Coladera</p>
     </div>
-  )
+  );
 }
