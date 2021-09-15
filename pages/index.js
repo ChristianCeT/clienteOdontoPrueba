@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <p>Coladera</p>
+      <p>Coladera V2</p>
     </div>
   );
 }
