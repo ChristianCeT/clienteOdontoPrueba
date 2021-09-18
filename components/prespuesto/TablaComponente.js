@@ -8,8 +8,8 @@ import {Button} from "react-bootstrap";
 
 import {IoIosRemove } from "react-icons/io";
 
-const TablaComponente = () => {
-
+const TablaComponente = ({ mostrar }) => {
+    console.log("componente", mostrar);
     const presupuestoContext = useContext(PresupuestoContext);
     
     const { tratamiento } = presupuestoContext;
@@ -53,4 +53,4 @@ const TablaComponente = () => {
     )
 }
 
-export default TablaComponente;
+export default React.memo(TablaComponente);

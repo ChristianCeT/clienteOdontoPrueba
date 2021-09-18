@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo, useCallback } from "react";
 
 import TablaComponente from "../../components/prespuesto/TablaComponente";
 
@@ -11,19 +11,33 @@ import PresupuestoContext from "../../context/presupuesto/PresupuestoContext";
 
 const Presupuesto = () => {
     const [agregarTabla, setAgregarTabla] = useState([]);
+    const [ mostrar, setMostrar ] = useState(false);
+    console.log(mostrar);
     console.log(agregarTabla);   
   
     const presupuestoContext = useContext(PresupuestoContext);
     const { modificarFilas, agregarFila } = presupuestoContext;
 
+    // const renderCuerpo = useMemo(
+    //     () => 
+    //     <TablaComponente
+    //         mostrar = { mostrar }
+    //     />, [mostrar]
+    // );
+
     useEffect(() => {
-        modificarFilas(agregarTabla)
+        modificarFilas(agregarTabla);
+        
     }, [agregarTabla])  
 
     const agregarfila = () => {
-
-        setAgregarTabla(Math.round(Math.random())); 
+        setAgregarTabla()
     }
+
+    const realizarllamado = useCallback(() => {
+        setMostrar(!mostrar);
+        console.log("ewe");
+    }, [mostrar])
 
   return (
     <>
@@ -43,9 +57,9 @@ const Presupuesto = () => {
             </thead>
             <tbody>
                 {
-                   agregarFila.map( fila => (
-                       <TablaComponente />
-                   )) 
+                   <TablaComponente
+                        mostrar={mostrar}
+                   />
                 }
             </tbody>
           </Table>
@@ -75,7 +89,7 @@ const Presupuesto = () => {
                   <Button
                     className="btn__agregar"
                     variant="success"
-                    onClick={() => agregarfila()}
+                    onClick={() => realizarllamado()}
                   >
                     <IoIosAdd></IoIosAdd> Agregar
                   </Button>
@@ -89,4 +103,4 @@ const Presupuesto = () => {
   );
 };
 
-export default Presupuesto;
+export default Presupuesto
