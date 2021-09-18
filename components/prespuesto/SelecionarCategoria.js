@@ -57,7 +57,7 @@ const SelecionarCategoria = () => {
         noOptionsMessage={() => "No hay resultados"}
         className="tratamiento-select"
       />
- 
+    
   );
 };
 

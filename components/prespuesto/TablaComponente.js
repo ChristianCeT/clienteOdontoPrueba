@@ -8,14 +8,13 @@ import {Button} from "react-bootstrap";
 
 import {IoIosRemove } from "react-icons/io";
 
-export default function TablaComponente() {
+const TablaComponente = () => {
 
     const presupuestoContext = useContext(PresupuestoContext);
-
+    
     const { tratamiento } = presupuestoContext;
     console.log(tratamiento);
-    
-    if( tratamiento.length === 0) return "cargando datos...";
+
 
     return (
         <>
@@ -31,12 +30,13 @@ export default function TablaComponente() {
                   <input type="number" min="1" defaultValue="1" className="cantidad__input"></input>
                 </td>
                 <td>
-                     {
-                        (!tratamiento || typeof tratamiento[0].costo !== "undefined")
+                    {
+                        (tratamiento.length < 1)
                         ?
-                            `${tratamiento[0].costo}`
-                        :
                             "0"
+                        :
+                            `${tratamiento[0].costo}`.replace('undefined', 0)
+
                     }   
                 </td>
                 <td>50</td>
@@ -52,3 +52,5 @@ export default function TablaComponente() {
               </>
     )
 }
+
+export default TablaComponente;
