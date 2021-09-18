@@ -18,16 +18,9 @@ const Presupuesto = () => {
     const presupuestoContext = useContext(PresupuestoContext);
     const { modificarFilas, agregarFila } = presupuestoContext;
 
-    // const renderCuerpo = useMemo(
-    //     () => 
-    //     <TablaComponente
-    //         mostrar = { mostrar }
-    //     />, [mostrar]
-    // );
 
     useEffect(() => {
         modificarFilas(agregarTabla);
-        
     }, [agregarTabla])  
 
     const agregarfila = () => {
@@ -56,11 +49,9 @@ const Presupuesto = () => {
               <th>Acciones</th>
             </thead>
             <tbody>
-                {
-                   <TablaComponente
-                        mostrar={mostrar}
-                   />
-                }
+                {<TablaComponente
+                    mostrar = { mostrar }
+                />}
             </tbody>
           </Table>
         </Col>

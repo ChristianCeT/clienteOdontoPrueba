@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import SelecionarCategoria from "./SelecionarCategoria";
 import SeleccionarTratamiento from "./SeleccionarTratamiento";
 import PresupuestoContext from "../../context/presupuesto/PresupuestoContext";
@@ -8,8 +8,8 @@ import {Button} from "react-bootstrap";
 
 import {IoIosRemove } from "react-icons/io";
 
-const TablaComponente = ({ mostrar }) => {
-    console.log("componente", mostrar);
+const TablaComponente = memo(( mostrar ) => {
+    console.log("render");
     const presupuestoContext = useContext(PresupuestoContext);
     
     const { tratamiento } = presupuestoContext;
@@ -51,6 +51,6 @@ const TablaComponente = ({ mostrar }) => {
               </tr>
               </>
     )
-}
+})
 
-export default React.memo(TablaComponente);
+export default TablaComponente;
