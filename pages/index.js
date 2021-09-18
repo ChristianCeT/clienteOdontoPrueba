@@ -1,7 +1,9 @@
+import PresupuestoScreen from "./Presupuesto/PresupuestoScreen";
+import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Home() {
   return (
     <div>
-      <p>Coladera V2</p>
+      <PresupuestoScreen></PresupuestoScreen>
     </div>
   );
 }
