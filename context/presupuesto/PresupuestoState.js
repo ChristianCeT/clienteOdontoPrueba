@@ -6,14 +6,14 @@ import {
     SELECCIONA_CATEGORIA,
     SELECCIONA_TRATAMIENTO,
     CANTIDAD_TRATAMIENTO,
-    AGREGAR_FILA,
+    AGREGAR_PRESUPUESTO,
 } from '../../types';
 
 const PresupuestoState = ({children}) => {
 
     // State de Presupuesto
     const initialState = {
-        agregarFila: [],
+        presupuesto: [],
         categoria: [],
         tratamiento: [],
         total: 0
@@ -39,23 +39,22 @@ const PresupuestoState = ({children}) => {
         })
     }
 
-    const modificarFilas = repeticiones => {
-        console.log("awa", repeticiones);
+    const agregarPresupuesto = dato => {
         dispatch({
-            type: AGREGAR_FILA,
-            payload: repeticiones
+            type: AGREGAR_PRESUPUESTO,
+            payload: dato
         })
     }
 
     return(
         <PresupuestoContext.Provider
             value={{
+                presupuesto: state.presupuesto,
                 categoria : state.categoria,
                 tratamiento : state.tratamiento,
-                agregarFila : state.agregarFila,
                 agregarCategoria,
                 agregarTratamiento,
-                modificarFilas
+                agregarPresupuesto
             }}
         >
             {children}

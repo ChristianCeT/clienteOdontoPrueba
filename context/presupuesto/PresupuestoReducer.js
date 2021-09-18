@@ -2,7 +2,7 @@ import {
     SELECCIONA_CATEGORIA,
     SELECCIONA_TRATAMIENTO,
     CANTIDAD_TRATAMIENTO,
-    AGREGAR_FILA,
+    AGREGAR_PRESUPUESTO,
 } from '../../types';
 
 const PresupuestoReducer = ( state, action ) => {
@@ -17,10 +17,10 @@ const PresupuestoReducer = ( state, action ) => {
                 ...state,
                 tratamiento: [action.payload]
             }
-        case AGREGAR_FILA:
+        case AGREGAR_PRESUPUESTO:
             return {
                 ...state,
-                agregarFila: [...state.agregarFila, action.payload]
+                presupuesto: [...state.presupuesto, action.payload]
             }    
         default:
             return state;

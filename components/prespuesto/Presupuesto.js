@@ -1,6 +1,14 @@
-import React, { useContext, useEffect, useState, useMemo, useCallback } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 
 import TablaComponente from "../../components/prespuesto/TablaComponente";
+import SelecionarCategoria from "./SelecionarCategoria";
+import SeleccionarTratamiento from "./SeleccionarTratamiento";
 
 // React bootstrap
 import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
@@ -8,53 +16,72 @@ import { IoIosAdd } from "react-icons/io";
 
 import PresupuestoContext from "../../context/presupuesto/PresupuestoContext";
 
-
 const Presupuesto = () => {
-    const [agregarTabla, setAgregarTabla] = useState([]);
-    const [ mostrar, setMostrar ] = useState(false);
-    console.log(mostrar);
-    console.log(agregarTabla);   
-  
-    const presupuestoContext = useContext(PresupuestoContext);
-    const { modificarFilas, agregarFila } = presupuestoContext;
+  const [dato, setDato] = useState({});
 
+  const presupuestoContext = useContext(PresupuestoContext);
+  const { categoria, presupuesto, tratamiento, agregarPresupuesto } =
+    presupuestoContext;
 
-    useEffect(() => {
-        modificarFilas(agregarTabla);
-    }, [agregarTabla])  
+  // console.log(categoria);
+  // console.log(tratamiento);
+  // console.log("aw", dato);
+  useEffect(() => {
+    agregarPresupuesto(dato);
+  }, [dato]);
 
-    const agregarfila = () => {
-        setAgregarTabla()
-    }
+  const agregarTabla = () => {
+    let objeto = {
+      id: categoria._id,
+      categoria: categoria.nombre,
+      tratamiento: tratamiento[0].nombre,
+      precio: tratamiento[0].costo,
+    };
+    setDato(objeto);
+  };
 
-    const realizarllamado = useCallback(() => {
-        setMostrar(!mostrar);
-        console.log("ewe");
-    }, [mostrar])
+  console.log("presupuest", presupuesto);
 
   return (
     <>
       <Row className="div__container-row">
-        <Col md={8}>
-          <h1>Presupuesto</h1>
-          <Table striped bordered hover>
-            <thead>
-              <th>#</th>
-              <th>Categoría</th>
-              <th>Tratamiento</th>
-              <th>Cantidad</th>
-              <th>C/U</th>
-              <th>Descuento</th>
-              <th>Costo</th>
-              <th>Acciones</th>
-            </thead>
-            <tbody>
-                {<TablaComponente
-                    mostrar = { mostrar }
-                />}
-            </tbody>
-          </Table>
-        </Col>
+        <h1>Presupuesto</h1>
+        <div>
+          <label>Seleccionar categoría</label>
+          <SelecionarCategoria />
+          <label>Seleccionar tratamiento</label>
+          <SeleccionarTratamiento />
+
+          <Button
+            className="btn__agregar"
+            variant="success"
+            onClick={() => agregarTabla()}
+          >
+            <IoIosAdd></IoIosAdd> Añadir a presupuesto
+          </Button>
+        </div>
+
+        {presupuesto.length !== 1 ? (
+          <Col md={8}>
+            <Table striped bordered hover>
+              <thead>
+                <th>#</th>
+                <th>Categoría</th>
+                <th>Tratamiento</th>
+                <th>Cantidad</th>
+                <th>C/U</th>
+                <th>Descuento</th>
+                <th>Costo</th>
+                <th>Acciones</th>
+              </thead>
+              {presupuesto.slice(1, presupuesto.length).map((item, contador) => (
+                <TablaComponente key={item.id} item={item} contador={contador} />
+              ))}
+            </Table>
+          </Col>
+        ) : (
+          <p>Aun no hay registros</p>
+        )}
 
         <Col sm={4}>
           <Card>
@@ -77,13 +104,6 @@ const Presupuesto = () => {
               <ListGroup.Item>
                 <Col>
                   <Button>Enviar al correo</Button>
-                  <Button
-                    className="btn__agregar"
-                    variant="success"
-                    onClick={() => realizarllamado()}
-                  >
-                    <IoIosAdd></IoIosAdd> Agregar
-                  </Button>
                 </Col>
               </ListGroup.Item>
             </ListGroup>
@@ -94,4 +114,4 @@ const Presupuesto = () => {
   );
 };
 
-export default Presupuesto
+export default Presupuesto;
