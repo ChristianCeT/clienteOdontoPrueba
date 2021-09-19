@@ -6,34 +6,40 @@ import PresupuestoContext from "../../context/presupuesto/PresupuestoContext";
 import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { IoIosAdd, IoIosRemove  } from "react-icons/io";
 
-const TablaComponente = ({ item, contador}) => {
+const TablaComponente = ({ item, contador, dato}) => {
 
   const { categoria, tratamiento, precio } = item;
-
   const [cantidadValor, setCantidadValor] = useState(1);
   const [descuento, setDescuento] = useState(0);
   const [subtotal, setSubtotal] = useState(precio);
 
   
+      dato.costoTotal = (cantidadValor * precio) - descuento
+      dato.descuento = Number(descuento)
+  
+      
 
+  
 
   const presupuestoContext = useContext(PresupuestoContext);
-  const { calcularResumen, cantidadDescuento, cantidadSubTotal } = presupuestoContext;  
-
-  console.log(cantidadValor);
+  const { calcularResumen, cantidadDescuento, cantidadSub, cantidadSubTotal, modificarPresupuesto, presupuesto } = presupuestoContext;  
+  
 
   useEffect(() => {
 
     calcularCosto()
-    
+    modificarPresupuesto(dato)
     cantidadDescuento(Number(descuento))
     cantidadSubTotal((cantidadValor * precio) - descuento)
-  }, [cantidadValor, descuento, precio ]);
+  }, [cantidadValor, descuento ]);
   
   const calcularCosto = () => {
     setSubtotal((cantidadValor * precio) - descuento)
   }
 
+  const actualizarSubTotal = e => {
+    setCantidadValor(e)
+  }
   return (
     <>
           <tbody>
@@ -47,7 +53,7 @@ const TablaComponente = ({ item, contador}) => {
                   min="1"
                   defaultValue="1"
                   className="cantidad__input"
-                  onChange={(e) => setCantidadValor(e.target.value )}
+                  onChange={(e) => actualizarSubTotal(e.target.value)}
                 />
               </td>
               <td>

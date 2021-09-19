@@ -6,6 +6,9 @@ import React, {
   useCallback,
 } from "react";
 
+import lodash from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
 import TablaComponente from "../../components/prespuesto/TablaComponente";
 import SelecionarCategoria from "./SelecionarCategoria";
 import SeleccionarTratamiento from "./SeleccionarTratamiento";
@@ -20,8 +23,13 @@ const Presupuesto = () => {
   const [dato, setDato] = useState({});
 
   const presupuestoContext = useContext(PresupuestoContext);
-  const { categoria, presupuesto, tratamiento, agregarPresupuesto } =
-    presupuestoContext;
+  const { 
+    categoria, 
+    presupuesto, 
+    tratamiento, 
+    agregarPresupuesto 
+  
+  } = presupuestoContext;
 
   // console.log(categoria);
   // console.log(tratamiento);
@@ -30,17 +38,19 @@ const Presupuesto = () => {
     agregarPresupuesto(dato);
   }, [dato]);
 
+
   const agregarFila = () => {
+    const cod = uuidv4();
     let objeto = {
-      id: categoria._id,
+      id: cod,
       categoria: categoria.nombre,
       tratamiento: tratamiento[0].nombre,
       precio: tratamiento[0].costo,
-      costoTotal: 0
+      costoTotal: 0,
+      descuento: 0
     };
     setDato(objeto);
   };
-
 
   return (
     <>
@@ -75,7 +85,7 @@ const Presupuesto = () => {
                 <th>Acciones</th>
               </thead>
               {presupuesto.slice(1, presupuesto.length).map((item, contador) => (
-                <TablaComponente key={contador} item={item} contador={contador} />
+                <TablaComponente key={contador} item={item} dato={dato} contador={contador} />
               ))}
             </Table>
           </Col>
@@ -90,7 +100,7 @@ const Presupuesto = () => {
                 <h3>Resumen del presupuesto</h3>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Col>Subtotal:</Col>
+                <Col>Subtotal: {} </Col>
               </ListGroup.Item>
 
               <ListGroup.Item>

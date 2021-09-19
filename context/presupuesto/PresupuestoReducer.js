@@ -5,6 +5,7 @@ import {
   AGREGAR_PRESUPUESTO,
   AGREGAR_SUBTOTAL,
   AGREGAR_DESCUENTO,
+  ACTUALIZAR_SUBTOTAL
 } from "../../types";
 
 const PresupuestoReducer = (state, action) => {
@@ -27,13 +28,18 @@ const PresupuestoReducer = (state, action) => {
     case AGREGAR_SUBTOTAL:
     return {
         ...state,
-        cantidadSub:   action.payload
+        cantidadSub:  action.payload,
     };
     case AGREGAR_DESCUENTO:
       return {
         ...state,
-        cantidadDesc:  action.payload
+        cantidadDesc: action.payload,
       };
+    case ACTUALIZAR_SUBTOTAL:
+    return {
+        ...state,
+        presupuesto: state.presupuesto.filter(item => item.id === action.payload.id ? item = action.payload : item)
+    };
     default:
       return state;
   }
