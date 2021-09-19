@@ -7,12 +7,17 @@ import {
     SELECCIONA_TRATAMIENTO,
     CANTIDAD_TRATAMIENTO,
     AGREGAR_PRESUPUESTO,
+    AGREGAR_SUBTOTAL,
+    AGREGAR_DESCUENTO
 } from '../../types';
 
 const PresupuestoState = ({children}) => {
 
     // State de Presupuesto
     const initialState = {
+        cantidadDesc: 0,
+        cantidadSub: 0,  
+        resumenPresupuesto:{},
         presupuesto: [],
         categoria: [],
         tratamiento: [],
@@ -46,15 +51,48 @@ const PresupuestoState = ({children}) => {
         })
     }
 
+
+
+    // Resumen de presupuesto 
+    const calcularResumen = dato => {
+        console.log(dato);
+        // dispatch({
+
+        // })
+    }
+
+    const cantidadSubTotal = subtotal => {
+        console.log("sub",(subtotal));
+        dispatch({
+            type: AGREGAR_SUBTOTAL,
+            payload: subtotal
+        })
+    }
+
+    const cantidadDescuento = descuento => {
+        console.log("desc",descuento);
+        dispatch({
+            type: AGREGAR_DESCUENTO,
+            payload: descuento
+        })
+    }   
+
     return(
         <PresupuestoContext.Provider
             value={{
+                cantidadDesc: state.presupuesto,
+                cantidadSub: state.categoria,
                 presupuesto: state.presupuesto,
                 categoria : state.categoria,
                 tratamiento : state.tratamiento,
+                resumenPresupuesto: state.resumenPresupuesto,
                 agregarCategoria,
                 agregarTratamiento,
-                agregarPresupuesto
+                agregarPresupuesto,
+                calcularResumen,
+                cantidadSubTotal,
+                cantidadDescuento,
+                
             }}
         >
             {children}

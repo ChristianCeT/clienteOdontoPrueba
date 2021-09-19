@@ -30,17 +30,17 @@ const Presupuesto = () => {
     agregarPresupuesto(dato);
   }, [dato]);
 
-  const agregarTabla = () => {
+  const agregarFila = () => {
     let objeto = {
       id: categoria._id,
       categoria: categoria.nombre,
       tratamiento: tratamiento[0].nombre,
       precio: tratamiento[0].costo,
+      costoTotal: 0
     };
     setDato(objeto);
   };
 
-  console.log("presupuest", presupuesto);
 
   return (
     <>
@@ -55,7 +55,7 @@ const Presupuesto = () => {
           <Button
             className="btn__agregar"
             variant="success"
-            onClick={() => agregarTabla()}
+            onClick={() => agregarFila()}
           >
             <IoIosAdd></IoIosAdd> Añadir a presupuesto
           </Button>
@@ -75,7 +75,7 @@ const Presupuesto = () => {
                 <th>Acciones</th>
               </thead>
               {presupuesto.slice(1, presupuesto.length).map((item, contador) => (
-                <TablaComponente key={item.id} item={item} contador={contador} />
+                <TablaComponente key={contador} item={item} contador={contador} />
               ))}
             </Table>
           </Col>
