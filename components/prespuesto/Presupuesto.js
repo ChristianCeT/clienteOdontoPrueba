@@ -6,8 +6,8 @@ import React, {
   useCallback,
 } from "react";
 
-import lodash from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
+import lodash from "lodash";
+import { v4 as uuidv4 } from "uuid";
 
 import TablaComponente from "../../components/prespuesto/TablaComponente";
 import SelecionarCategoria from "./SelecionarCategoria";
@@ -18,27 +18,26 @@ import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { IoIosAdd } from "react-icons/io";
 
 import PresupuestoContext from "../../context/presupuesto/PresupuestoContext";
+import useSubTotal from "../../Hooks/useSubTotal";
 
 const Presupuesto = () => {
   const [dato, setDato] = useState({});
-
+  const [numeroFilas, setNumeroFilas] = useState(0);
   const presupuestoContext = useContext(PresupuestoContext);
-  const { 
-    categoria, 
-    presupuesto, 
-    tratamiento, 
-    agregarPresupuesto 
-  
-  } = presupuestoContext;
+  const { categoria, presupuesto, tratamiento, agregarPresupuesto } =
+    presupuestoContext;
+
+  const [Monto, setMonto] = useState(0);
+
+  const { acumulador } = useSubTotal();
 
   // console.log(categoria);
   // console.log(tratamiento);
   // console.log("aw", dato);
   useEffect(() => {
     agregarPresupuesto(dato);
-    sumar()
+    sumar();
   }, [dato]);
-
 
   const agregarFila = () => {
     const cod = uuidv4();
@@ -48,19 +47,20 @@ const Presupuesto = () => {
       tratamiento: tratamiento[0].nombre,
       precio: tratamiento[0].costo,
       costoTotal: 0,
-      descuento: 0
+      descuento: 0,
     };
     setDato(objeto);
   };
 
   const sumar = () => {
-      let costTotal;
-      let descuento;
+    let costTotal;
+    let descuento;
 
-      presupuesto.slice(1, 10).map(item => {
-        console.log("sum", item);
-      })
-  }
+    presupuesto.map((item, key) => {
+      setNumeroFilas(key + 1);
+      console.log("preciooo", item.precio);
+    });
+  };
 
   return (
     <>
@@ -94,9 +94,17 @@ const Presupuesto = () => {
                 <th>Costo</th>
                 <th>Acciones</th>
               </thead>
-              {presupuesto.slice(1, presupuesto.length).map((item, contador) => (
-                <TablaComponente key={contador} item={item} dato={dato} contador={contador} />
-              ))}
+              {presupuesto
+                .slice(1, presupuesto.length)
+                .map((item, contador) => (
+                  <TablaComponente
+                    key={contador}
+                    item={item}
+                    dato={dato}
+                    contador={contador}
+                    numeroFilas={numeroFilas}
+                  />
+                ))}
             </Table>
           </Col>
         ) : (
