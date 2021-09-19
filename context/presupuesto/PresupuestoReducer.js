@@ -38,7 +38,7 @@ const PresupuestoReducer = (state, action) => {
     case ACTUALIZAR_SUBTOTAL:
     return {
         ...state,
-        presupuesto: state.presupuesto.filter(item => item.id === action.payload.id ? item = action.payload : item)
+        presupuesto: state.presupuesto.map(item => item.id === action.payload.id ? item = action.payload : item)
     };
     default:
       return state;

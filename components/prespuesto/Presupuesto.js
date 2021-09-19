@@ -36,6 +36,7 @@ const Presupuesto = () => {
   // console.log("aw", dato);
   useEffect(() => {
     agregarPresupuesto(dato);
+    sumar()
   }, [dato]);
 
 
@@ -51,6 +52,15 @@ const Presupuesto = () => {
     };
     setDato(objeto);
   };
+
+  const sumar = () => {
+      let costTotal;
+      let descuento;
+
+      presupuesto.slice(1, 10).map(item => {
+        console.log("sum", item);
+      })
+  }
 
   return (
     <>
