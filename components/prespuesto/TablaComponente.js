@@ -7,8 +7,15 @@ import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import useSubTotal from "../../Hooks/useSubTotal";
 
-const TablaComponente = ({ item, contador, dato, numeroFilas }) => {
-  const { categoria, tratamiento, precio } = item;
+const TablaComponente = ({
+  item,
+  contador,
+  dato,
+  numeroFilas,
+  borrarFila,
+  setReloadTable,
+}) => {
+  const { id, categoria, tratamiento, precio } = item;
   const {
     actualizarSubTotal,
     setDescuento,
@@ -46,7 +53,11 @@ const TablaComponente = ({ item, contador, dato, numeroFilas }) => {
           <td>{subtotal}</td>
           <td>
             <div className="categoria__container--btn">
-              <Button className="btn__borrar" variant="danger">
+              <Button
+                className="btn__borrar"
+                variant="danger"
+                onClick={() => borrarFila(id)}
+              >
                 <IoIosRemove></IoIosRemove> Borrar
               </Button>
             </div>

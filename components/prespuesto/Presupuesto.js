@@ -26,6 +26,7 @@ const Presupuesto = () => {
   const presupuestoContext = useContext(PresupuestoContext);
   const { categoria, presupuesto, tratamiento, agregarPresupuesto } =
     presupuestoContext;
+  const [reloadTable, setReloadTable] = useState(false);
 
   const [Monto, setMonto] = useState(0);
 
@@ -38,6 +39,11 @@ const Presupuesto = () => {
     agregarPresupuesto(dato);
     sumar();
   }, [dato]);
+
+  useEffect(() => {
+    presupuesto;
+    setReloadTable(false);
+  }, [reloadTable]);
 
   const agregarFila = () => {
     const cod = uuidv4();
@@ -60,6 +66,22 @@ const Presupuesto = () => {
       setNumeroFilas(key + 1);
       console.log("preciooo", item.precio);
     });
+  };
+
+  console.log("presupuestoactual", presupuesto);
+
+  const borrarFila = (id) => {
+    let contador = 0;
+
+    presupuesto.map((registro) => {
+      if (registro.id === id) {
+        presupuesto.splice(contador, 1);
+      }
+      contador++;
+    });
+
+    console.log("prespupuestdespues", presupuesto);
+    setReloadTable(true);
   };
 
   return (
@@ -103,6 +125,8 @@ const Presupuesto = () => {
                     dato={dato}
                     contador={contador}
                     numeroFilas={numeroFilas}
+                    borrarFila={borrarFila}
+                    setReloadTable={setReloadTable}
                   />
                 ))}
             </Table>

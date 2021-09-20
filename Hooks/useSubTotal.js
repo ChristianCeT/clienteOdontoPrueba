@@ -10,7 +10,7 @@ export default function useSubTotal(precio, numeroFilas) {
   /*  dato.costoTotal = cantidadValor * precio - descuento;
   dato.descuento = Number(descuento); */
   var arreglo = [];
-  var array = [];
+  let array = [];
   let suma = 0;
   let acumulador = 0;
   const presupuestoContext = useContext(PresupuestoContext);
@@ -41,6 +41,7 @@ export default function useSubTotal(precio, numeroFilas) {
 
   for (let index = 0; index < numeroFilas; index++) {
     acumulador = Number(subtotal);
+    let arreglo = Number();
   }
   arreglo.push(acumulador);
   console.log("acumulador", acumulador);
